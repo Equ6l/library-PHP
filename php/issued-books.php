@@ -51,7 +51,6 @@ if (strlen($_SESSION['login']) == 0) {
     <div class="container">
         <div class="row text-center m-3">
             <div class="col-12">
-
                 <h3>LIVRES EMPRUNTÉS</h3>
             </div>
         </div>

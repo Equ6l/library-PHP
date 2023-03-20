@@ -41,7 +41,7 @@ if (isset($_POST['vercode'], $_SESSION['vercode'])) {
             $_SESSION['alogin'] = $_POST['adminEmail'];
             // echo "Vous êtes connecté !";
             // On redirige l'utilisateur vers le tableau de bord administration (n'existe pas encore)
-            header('dashboard.php');
+            header("location:../admin/php/dashboard.php");
         } else {
             // sinon le login est refuse. On le signal par une popup
             echo "<script>alert('Accès refusé')</script>";
@@ -74,7 +74,7 @@ if (isset($_POST['vercode'], $_SESSION['vercode'])) {
     <div class="container">
         <div class="row text-center m-3">
             <div class="col-12">
-                <h3>TABLEAU DE BORD ADMIN</h3>
+                <h3>LOGIN ADMIN</h3>
             </div>
         </div>
         <!--On affiche le formulaire de login-->
