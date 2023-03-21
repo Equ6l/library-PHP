@@ -7,9 +7,10 @@ if (strlen($_SESSION['alogin']) == 0) {
 } else {
       if (isset($_GET['del'])) {
 
-            // On recupere l'identifiant de la catégorie a supprimer
+            // On recupere l'identifiant du livre a supprimer
             $id = $_GET['del'];
-            var_dump($id);
+            // var_dump($id);
+            // die("hello");
 
             // On prepare la requete de suppression
             $sql = "DELETE FROM tblbooks WHERE id=:id";
@@ -69,8 +70,8 @@ if (strlen($_SESSION['alogin']) == 0) {
                               <tbody>
                                     <?php
                                     $sql = "SELECT * 
-                                    FROM tblbooks 
-                                    JOIN tblauthors ON tblbooks.AuthorId = tblauthors.id";
+                                    FROM tblbooks";
+                                    // JOIN tblauthors ON tblbooks.AuthorId = tblauthors.id
                                     // JOIN tblcategory ON tblbooks.CatId = tblcategory.id";
 
                                     $stmt = $dbh->prepare($sql);
@@ -86,11 +87,11 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                       <td><?= $counter; ?></td>
                                                       <td><?= $rows->BookName; ?></td>
                                                       <td><?= $rows->CatId; ?></td>
-                                                      <td><?= $rows->AuthorName ?></td>
+                                                      <td><?= $rows->AuthorId ?></td>
                                                       <td><?= $rows->ISBNNumber ?></td>
                                                       <td><?= $rows->BookPrice ?></td>
                                                       <td>
-                                                            <a href="edit-book.php?booksid=<?php echo htmlentities($rows->id); ?>">
+                                                            <a href="edit-book.php?bookid=<?php echo htmlentities($rows->id); ?>">
                                                                   <button type="button" class="btn btn-primary me-2"><i class="fa fa-edit"></i> Éditer</button>
                                                             </a>
                                                             <a href="manage-books.php?del=<?php echo htmlentities($rows->id); ?>" onclick="return confirm('Etes-vous sur(e) de vouloir supprimer ?');">

@@ -48,9 +48,9 @@ if (strlen($_SESSION['alogin'] == 0)) {
     // On execute la requete
     $stmt->execute();
 
-    // On stocke dans $_SESSION le message correspondant au resultat de loperation
     $lastInsertId = $dbh->lastInsertId();
-
+    
+    // On stocke dans $_SESSION le message correspondant au resultat de loperation
     if ($lastInsertId) {
       $_SESSION['msg'] = "Auteur créé";
       header('location:manage-books.php');
