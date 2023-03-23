@@ -62,8 +62,7 @@
                             Lecteurs
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="add-reader.php">Ajouter un lecteur</a></li>
-                            <li><a class="dropdown-item" href="reg-students.php">Gérer les lecteurs</a></li>
+                            <li><a class="dropdown-item" href="reg-readers.php">Gérer les lecteurs</a></li>
                             <li><a class="dropdown-item" href="change-password.php">Modifier le mot de passe</a></li>
                         </ul>
                     </li>

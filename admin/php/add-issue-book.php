@@ -13,8 +13,6 @@ if (strlen($_SESSION['alogin']) == 0) {
             $SID = strtoupper($_POST['rdid']);
             $ISBN = $_POST['isbn'];
 
-            // $sql2 = "SELECT id FROM tblbooks WHERE";
-
             $sql = "INSERT INTO tblissuedbookdetails(ReaderID, BookId, ReturnStatus) 
             SELECT tblreaders.ReaderId, tblbooks.id, 0 
             FROM tblbooks 
