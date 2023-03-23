@@ -1,36 +1,39 @@
 <?php
 /* Cette fonction est declenchee au moyen d'un appel AJAX depuis le formulaire de sortie de livre */
 /* On recupere le numero l'identifiant du lecteur SID---*/
+require_once("../includes/config.php");
 
-$SID = $_SESSION['rdid'];
+if (!empty($_GET['rdid'])) {
 
-// On prepare la requete de recherche du lecteur correspondant
-$sql = "SELECT * FROM tblreaders WHERE ReaderId = :id";
-$stmt = $dbh->prepare($sql);
-$stmt->bindParam(':id', $SID);
+	$SID = strtoupper($_GET['rdid']);
 
-// On execute la requete
-$stmt->execute();
+	// On prepare la requete de recherche du lecteur correspondant
+	$sql = "SELECT ReaderId, FullName, Status FROM tblreaders WHERE ReaderId = :id";
+	$stmt = $dbh->prepare($sql);
+	$stmt->bindParam(':id', $SID);
 
-$result = $stmt->fetch(PDO::FETCH_OBJ);
+	// On execute la requete
+	$stmt->execute();
 
-// Si un resultat est trouve
-if ($result) {
-	// On affiche le nom du lecteur
-	echo $result->FullName;
-	// On active le bouton de soumission du formulaire
-	echo "<script> document.getElementById('submitButton').disabled = false</script>";
-} else if ($result->ReaderId === null) {
-	// Sinon
-	// Si le lecteur n existe pas
-	// On affiche que "Le lecteur est non valide"
-	echo "Le lecteur est non valide";
-	// On desactive le bouton de soumission du formulaire
-	echo "<script>document.getElementById('submitButton').disabled = true</script>";
-} else {
-	// Si le lecteur est bloque
-	// On affiche lecteur bloque
-	echo $result->ReaderId;
-	// On desactive le bouton de soumission du formulaire
-	echo "<script>document.getElementById('submitButton').disabled = true</script>";
+	$result = $stmt->fetch(PDO::FETCH_OBJ);
+
+	// Si un resultat est trouve
+	if (!empty($result)) {
+		if ($result->Status === 0) {
+			echo "L'utilisateur " . $result->ReaderId . " est bloqué";
+			echo "<script>document.getElementById('searchButton').disabled = true</script>";
+		} else {
+			// On affiche le nom du lecteur
+			echo htmlentities("Lecteur : " . $result->FullName);
+			// On active le bouton de soumission du formulaire
+			echo "<script> document.getElementById('searchButton').disabled = false</script>";
+		}
+	} else {
+		// Sinon
+		// Si le lecteur n existe pas
+		// On affiche que "Le lecteur est non valide"
+		echo "Le lecteur est non valide";
+		// On desactive le bouton de soumission du formulaire
+		echo "<script>document.getElementById('searchButton').disabled = true</script>";
+	}
 }

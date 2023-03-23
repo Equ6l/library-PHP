@@ -18,7 +18,7 @@ if (strlen($_SESSION['alogin']) == 0) {
   $results = $query->fetch(PDO::FETCH_COLUMN);
 
   // On récupère le nombre de livres en prêt depuis la table tblissuedbookdetails
-  $sql1 = "SELECT COUNT(id) FROM tblissuedbookdetails";
+  $sql1 = "SELECT COUNT(id) FROM tblissuedbookdetails WHERE ReturnStatus = 0";
   $query1 = $dbh->prepare($sql1);
   $query1->execute();
   $results1 = $query1->fetch(PDO::FETCH_COLUMN);
@@ -94,7 +94,7 @@ if (strlen($_SESSION['alogin']) == 0) {
               <div class="card" style="width: 15rem;">
                 <span class="fa fa-bars fa-5x" style="color:#FF764F;"></span>
                 <div class="card-body">
-                  <h5>Livres en prêt</h5>
+                  <h5>Livres empruntés</h5>
                   <?= "<strong>" . $results1 . "</strong>"; ?>
                 </div>
               </div>
